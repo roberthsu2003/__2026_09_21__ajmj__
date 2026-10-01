@@ -1,0 +1,115 @@
+{
+  "name": "初體驗1",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "# 初體驗\n\n這是我的初體驗",
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -640,
+        -480
+      ],
+      "typeVersion": 1,
+      "id": "4d6bd9de-b6bc-430c-be6c-bed9d078128b",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -464,
+        -288
+      ],
+      "id": "6706fdfb-e3bf-491f-bbb1-3d3ea30c0067",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "operation": "getAllPeople"
+      },
+      "type": "n8n-nodes-base.n8nTrainingCustomerDatastore",
+      "typeVersion": 1,
+      "position": [
+        -240,
+        -288
+      ],
+      "id": "88de2fc5-b4ed-4a87-b449-a17d5e7c6600",
+      "name": "輸出5筆資料"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "771211ea-3071-4521-bce1-24711106b5be",
+              "name": "編號",
+              "value": "={{$json.id}}",
+              "type": "string"
+            },
+            {
+              "id": "45a995b9-311d-4bea-89fa-434cccd8b34c",
+              "name": "姓名",
+              "value": "={{ $json.name }}",
+              "type": "string"
+            },
+            {
+              "id": "1e48cdbd-13a8-4db9-b275-3cab44ca98c2",
+              "name": "郵件",
+              "value": "={{ $json.email }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        -16,
+        -288
+      ],
+      "id": "1efdd48b-97e4-4082-8dad-949a2b46a99f",
+      "name": "Edit Fields"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "輸出5筆資料",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "輸出5筆資料": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "9d18eb34-9447-40cc-8c8c-fb2a8c51d900",
+  "meta": {
+    "instanceId": "045a5b9d9edd0c8aa4b2c66e1dd6ab0bc7191b38c0becd940d0dd46962ce5729"
+  },
+  "nodeGroups": [],
+  "id": "ACqY1uYP7GRmfX7k",
+  "tags": []
+}
