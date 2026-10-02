@@ -1,5 +1,4 @@
 {
-  "name": "可愛機器人",
   "nodes": [
     {
       "parameters": {
@@ -20,8 +19,8 @@
     },
     {
       "parameters": {
-        "respondWith": "json",
-        "responseBody": "{\"status\":\"ok\"}",
+        "respondWith": "text",
+        "responseBody": "我收到訊息",
         "options": {
           "responseCode": 200
         }
@@ -34,9 +33,75 @@
         -64,
         0
       ]
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "body.events",
+        "options": {}
+      },
+      "id": "3db85637-9b36-4430-a570-7df402f6416c",
+      "name": "拆分 events",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        112,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "a1",
+              "name": "userId",
+              "type": "string",
+              "value": "={{ $json.source.userId }}"
+            },
+            {
+              "id": "a2",
+              "name": "eventType",
+              "type": "string",
+              "value": "={{ $json.type }}"
+            },
+            {
+              "id": "a3",
+              "name": "messageType",
+              "type": "string",
+              "value": "={{ $json.message?.type }}"
+            },
+            {
+              "id": "a4",
+              "name": "text",
+              "type": "string",
+              "value": "={{ $json.message?.text }}"
+            },
+            {
+              "id": "a5",
+              "name": "replyToken",
+              "type": "string",
+              "value": "={{ $json.replyToken }}"
+            },
+            {
+              "id": "a6",
+              "name": "timestamp",
+              "type": "number",
+              "value": "={{ $json.timestamp }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "d1bde3f6-32ea-466d-ad56-8ee0ae7302e5",
+      "name": "整理訊息",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        304,
+        240
+      ]
     }
   ],
-  "pinData": {},
   "connections": {
     "LINE Webhook": {
       "main": [
@@ -45,26 +110,31 @@
             "node": "回應 LINE 200",
             "type": "main",
             "index": 0
+          },
+          {
+            "node": "拆分 events",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "拆分 events": {
+      "main": [
+        [
+          {
+            "node": "整理訊息",
+            "type": "main",
+            "index": 0
           }
         ]
       ]
     }
   },
-  "active": false,
-  "settings": {
-    "executionOrder": "v1",
-    "binaryMode": "separate",
-    "timeSavedMode": "fixed",
-    "callerPolicy": "workflowsFromSameOwner",
-    "availableInMCP": true
-  },
-  "versionId": "c1c05371-70c5-4b88-846a-4f59542232c1",
+  "pinData": {},
   "meta": {
     "aiBuilderAssisted": true,
     "builderVariant": "mcp",
     "instanceId": "c803ca8a26bf45bc3f88f1f78c91d96677081380780467fcefe6b6050eab3548"
-  },
-  "nodeGroups": [],
-  "id": "CUCMR4UGLV45p01H",
-  "tags": []
+  }
 }
