@@ -109,7 +109,7 @@
         "genericAuthType": "httpHeaderAuth",
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={{ JSON.stringify({ replyToken: $json.replyToken, messages: [{ type: 'text', text: ($json.text ?? '[非文字訊息]') + '\\n我已經收到訊息,我將處理' }] }) }}",
+        "jsonBody": "={{ JSON.stringify({ replyToken: $('整理訊息').item.json.replyToken, messages: [{ type: 'text', text: String($json.text || '抱歉，我暫時無法回覆，請稍後再試。').slice(0, 4900) }] }) }}",
         "options": {}
       },
       "id": "8bffa78f-d942-4685-9882-47c51787e1e9",
@@ -117,13 +117,60 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        384,
+        640,
         272
       ],
       "credentials": {
         "httpHeaderAuth": {
           "id": "CiKCAGmGzPQVvqAY",
           "name": "line_可愛機器人"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.text ?? '[使用者傳送了非文字訊息，例如貼圖或圖片]' }}",
+        "messages": {
+          "messageValues": [
+            {
+              "message": "你是 LINE 上的「可愛機器人」。一律使用繁體中文回覆，語氣親切、簡潔，直接切中重點。遇到你不知道、不確定，或資訊不足以回答的事情，請直接說不知道，並向使用者提出一個明確的問題請對方補充，切勿亂猜或捏造內容。若收到非文字訊息，請友善地請對方改用文字描述。"
+            }
+          ]
+        },
+        "batching": {}
+      },
+      "id": "37724c11-49a2-4cf2-a454-55022318b0d9",
+      "name": "Basic LLM Chain",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.9,
+      "position": [
+        384,
+        272
+      ],
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 1500
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-3.6-flash",
+        "options": {
+          "maxOutputTokens": 2048
+        }
+      },
+      "id": "298994fa-4d1c-4017-8bfa-f5a3988cc7fd",
+      "name": "Google Gemini Chat Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1.2,
+      "position": [
+        384,
+        448
+      ],
+      "credentials": {
+        "googlePalmApi": {
+          "id": "YYMuwsahHBXIq65f",
+          "name": "Google Gemini(PaLM) Api account"
         }
       }
     }
@@ -160,8 +207,30 @@
       "main": [
         [
           {
+            "node": "Basic LLM Chain",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Basic LLM Chain": {
+      "main": [
+        [
+          {
             "node": "回覆使用者",
             "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "ai_languageModel",
             "index": 0
           }
         ]
