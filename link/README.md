@@ -49,4 +49,7 @@ https://www.youtube.com/watch?v=w77ykHbi7Z8
 ## 2026_10_02_上午
 https://www.youtube.com/watch?v=kr36ZaLWmbQ
 
+## 2026_10_02_下午
+https://www.youtube.com/watch?v=g7XIi-OoCl4
+
 ---
