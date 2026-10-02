@@ -1,5 +1,4 @@
 {
-  "name": "回答問題",
   "nodes": [
     {
       "parameters": {},
@@ -48,8 +47,8 @@
       "type": "@n8n/n8n-nodes-langchain.vectorStoreInMemory",
       "typeVersion": 1.3,
       "position": [
-        608,
-        880
+        560,
+        896
       ],
       "id": "cb33d170-4b24-4be4-86f4-7260304d9054",
       "name": "Simple Vector Store"
@@ -105,7 +104,7 @@
     {
       "parameters": {
         "httpMethod": "POST",
-        "path": "tvdi_line_bot",
+        "path": "line-webhook",
         "responseMode": "responseNode",
         "options": {}
       },
@@ -132,7 +131,8 @@
         272
       ],
       "id": "4d178f4c-b61e-4cda-8c4e-de90a9e8cd88",
-      "name": "Question and Answer Chain"
+      "name": "Question and Answer Chain",
+      "onError": "continueErrorOutput"
     },
     {
       "parameters": {
@@ -207,7 +207,7 @@
         "genericAuthType": "httpHeaderAuth",
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={{ { replyToken: $('Webhook').item.json.body.events[0].replyToken, messages: [{ type: 'text', text: $('LINE美化回覆').item.json.line_reply }] } }}",
+        "jsonBody": "={{ { replyToken: $('Webhook').first().json.body.events[0].replyToken, messages: [{ type: 'text', text: $json.line_reply }] } }}",
         "options": {}
       },
       "type": "n8n-nodes-base.httpRequest",
@@ -217,7 +217,13 @@
         272
       ],
       "id": "f0d1bc5a-3ecb-4cb5-b46a-637039120404",
-      "name": "HTTP Request"
+      "name": "HTTP Request",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "CiKCAGmGzPQVvqAY",
+          "name": "line_可愛機器人"
+        }
+      }
     },
     {
       "parameters": {
@@ -246,9 +252,21 @@
       ],
       "id": "83751817-741c-4178-86a8-12e6fd9ec83a",
       "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{ json: { line_reply: '您好 🙏\\n目前業務較為繁忙，暫時無法即時回覆您的問題。\\n\\n煩請稍候片刻後再重新傳送，造成您的不便，敬請見諒，感謝您的耐心等候！' } }];"
+      },
+      "id": "2e112f75-fba1-4bb8-b88a-cce50e619df3",
+      "name": "錯誤回覆",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        640,
+        480
+      ]
     }
   ],
-  "pinData": {},
   "connections": {
     "When clicking ‘Execute workflow’": {
       "main": [
@@ -329,6 +347,13 @@
             "type": "main",
             "index": 0
           }
+        ],
+        [
+          {
+            "node": "錯誤回覆",
+            "type": "main",
+            "index": 0
+          }
         ]
       ]
     },
@@ -386,21 +411,23 @@
           }
         ]
       ]
+    },
+    "錯誤回覆": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
-  "active": false,
-  "settings": {
-    "executionOrder": "v1",
-    "binaryMode": "separate",
-    "timeSavedMode": "fixed",
-    "callerPolicy": "workflowsFromSameOwner",
-    "availableInMCP": true
-  },
-  "versionId": "e37a0db8-6a26-4391-b359-0617087df4f4",
+  "pinData": {},
   "meta": {
+    "aiBuilderAssisted": true,
+    "builderVariant": "mcp",
     "instanceId": "c803ca8a26bf45bc3f88f1f78c91d96677081380780467fcefe6b6050eab3548"
-  },
-  "nodeGroups": [],
-  "id": "e0aSRIdpdhSg3LC3",
-  "tags": []
+  }
 }
