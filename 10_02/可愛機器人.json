@@ -7,13 +7,13 @@
         "responseMode": "responseNode",
         "options": {}
       },
-      "id": "23d10109-7ae8-4f2e-8c39-2b7bc3f07db1",
+      "id": "4d942a02-2de0-40a1-bedf-db5859c5ca34",
       "name": "LINE Webhook",
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2.1,
       "position": [
-        -320,
-        0
+        -432,
+        32
       ],
       "webhookId": "870e323c-6bac-4a02-ae35-9a3a4ae9165b"
     },
@@ -25,13 +25,13 @@
           "responseCode": 200
         }
       },
-      "id": "4964e8bd-d0f7-44df-90e1-c2c37a57d977",
+      "id": "c12f9e4e-046c-4e1b-8024-94c7fd40e238",
       "name": "回應 LINE 200",
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.4,
       "position": [
-        -64,
-        0
+        -176,
+        32
       ]
     },
     {
@@ -39,13 +39,13 @@
         "fieldToSplitOut": "body.events",
         "options": {}
       },
-      "id": "3db85637-9b36-4430-a570-7df402f6416c",
+      "id": "cbc9dd50-b75e-4d47-b889-9bd96cd81b0b",
       "name": "拆分 events",
       "type": "n8n-nodes-base.splitOut",
       "typeVersion": 1,
       "position": [
-        112,
-        240
+        0,
+        272
       ]
     },
     {
@@ -92,14 +92,40 @@
         },
         "options": {}
       },
-      "id": "d1bde3f6-32ea-466d-ad56-8ee0ae7302e5",
+      "id": "5eb6d891-563e-4efd-9a7f-5ace2b9d6f30",
       "name": "整理訊息",
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        304,
-        240
+        192,
+        272
       ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.line.me/v2/bot/message/reply",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ replyToken: $json.replyToken, messages: [{ type: 'text', text: ($json.text ?? '[非文字訊息]') + '\\n我已經收到訊息,我將處理' }] }) }}",
+        "options": {}
+      },
+      "id": "8bffa78f-d942-4685-9882-47c51787e1e9",
+      "name": "回覆使用者",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        384,
+        272
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "CiKCAGmGzPQVvqAY",
+          "name": "line_可愛機器人"
+        }
+      }
     }
   ],
   "connections": {
@@ -124,6 +150,17 @@
         [
           {
             "node": "整理訊息",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "整理訊息": {
+      "main": [
+        [
+          {
+            "node": "回覆使用者",
             "type": "main",
             "index": 0
           }
