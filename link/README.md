@@ -53,3 +53,8 @@ https://www.youtube.com/watch?v=kr36ZaLWmbQ
 https://www.youtube.com/watch?v=g7XIi-OoCl4
 
 ---
+
+## 2026_10_05_上午
+https://www.youtube.com/watch?v=4E2BwOdV6lA
+
+---
