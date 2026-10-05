@@ -57,4 +57,7 @@ https://www.youtube.com/watch?v=g7XIi-OoCl4
 ## 2026_10_05_上午
 https://www.youtube.com/watch?v=4E2BwOdV6lA
 
+## 2026_10_05_下午
+https://www.youtube.com/watch?v=bXNwlV9G8Vw
+
 ---
