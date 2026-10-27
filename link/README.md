@@ -70,3 +70,8 @@ https://www.youtube.com/watch?v=2Hv3H2iBJs4
 
 
 ---
+
+## 2026_10_27_上午
+https://www.youtube.com/watch?v=9IoxZEzotz0
+
+---
