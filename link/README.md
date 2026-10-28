@@ -82,4 +82,8 @@ https://www.youtube.com/watch?v=9rz41lnWn3Y
 ## 2026_10_28_上午
 https://www.youtube.com/watch?v=vm8FBVQ5twE
 
+## 2026_10_28_下午
+https://www.youtube.com/watch?v=JT_PFv6bZC8
+
+
 ---
