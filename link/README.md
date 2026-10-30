@@ -99,4 +99,7 @@ https://youtube.com/live/ddpcVjUXbFI
 ## 2026_10_30_上午
 https://www.youtube.com/watch?v=bRgfB00UJ2o
 
+## 2026_10_30_下午
+https://www.youtube.com/watch?v=8BwaLURG3io
+
 ---
