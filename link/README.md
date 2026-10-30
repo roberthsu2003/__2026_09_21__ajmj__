@@ -91,5 +91,12 @@ https://www.youtube.com/watch?v=JT_PFv6bZC8
 ## 2026_10_29_上午
 https://www.youtube.com/watch?v=T3mopNfXlYY
 
+## 2026_10_29_下午
+https://youtube.com/live/ddpcVjUXbFI
+
 ---
+
+## 2026_10_30_上午
+https://www.youtube.com/watch?v=bRgfB00UJ2o
+
 ---
